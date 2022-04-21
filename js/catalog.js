@@ -3,7 +3,8 @@
 'use strict';
 
 // Set up an empty cart for use on this page.
-const cart = new Cart([]);
+const cart = new Cart([]); 
+let quantityTotal = 0;
 
 // On screen load, we call this method to put all of the busmall options
 // (the things in the Product.allProducts array) into the drop down list.
@@ -14,6 +15,7 @@ function populateForm() {
   for (let i in Product.allProducts) {
     let productInDropdownList = document.createElement('option');
     selectElement.appendChild(productInDropdownList);
+    productInDropdownList.value = Product.allProducts[i].name;
     productInDropdownList.textContent = Product.allProducts[i].name;
   }
 }
@@ -32,36 +34,28 @@ function handleSubmit(event) {
 
 }
 
-// TODO: Add the selected item and quantity to the cart
+//Done: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
-  // TODO: suss out the item picked from the select list
-  let clickedOnProduct = document.getElementById('fieldset');
-  let productSelected = document.getElementById('items')
-  productSelected.addEventListener('change', function (event) {
-    let itemToBeAddedToCart = event.target.item.option;
-    console.log(itemToBeAddedToCart)
-    return itemToBeAddedToCart;
-  })
-  // TODO: get the quantity
-  let quantity = document.getElementById('quantity')
-  quantity.addEventListener('change', function(event) {
-    let quantOfItem = event.target.quantity.number;
-    console.log(quantOfItem);
-    return quantOfItem;
-  }) 
-  clickedOnProduct.addEventListener('click', function(event){
-    let singleProductArray = [];
-    singleProductArray.push(itemToBeAddedToCart, quantity);
-    cart.push(singleProductArray);
-    console.log(cart);
-  })
-  // TODO: using those, add one item to the Cart
-  // Cart.push(itemToBeAddedToCart, quantOfItem);
+  // Done: suss out the item picked from the select list
+  let clickedOnProduct = document.getElementById('items').value;
+
+  
+  
+  // Done: get the quantity
+  let quantityselected = document.getElementById('quantity').value;
+
+  
+
+  // Done: using those, add one item to the Cart
+  cart.addItem(clickedOnProduct, quantityselected);
+  quantityTotal += quantityselected;
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
-
+function updateCounter() {
+let cartCount = document.getElementById('itemCount').value
+cartCount.textContent = `${quantityTotal}`
+}
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
   // TODO: Get the item and quantity from the form
