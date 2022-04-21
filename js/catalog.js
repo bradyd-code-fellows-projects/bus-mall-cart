@@ -12,20 +12,18 @@ function populateForm() {
   //DONE: Add an <option> tag inside the form's select for each product
   const selectElement = document.getElementById('items');
   for (let i in Product.allProducts) {
-    let selectedProduct = document.createElement('option');
-    selectElement.appendChild(selectedProduct);
-    selectedProduct.textContent = Product.allProducts[i].name;
+    let productInDropdownList = document.createElement('option');
+    selectElement.appendChild(productInDropdownList);
+    productInDropdownList.textContent = Product.allProducts[i].name;
   }
-
 }
 
 // When someone submits the form, we need to add the selected item to the cart
 // object, save the whole thing back to local storage and update the screen
 // so that it shows the # of items in the cart and a quick preview of the cart itself.
 function handleSubmit(event) {
-
-  // TODO: Prevent the page from reloading
-
+  // DONE: Prevent the page from reloading
+  event.preventDefault();
   // Do all the things ...
   addSelectedItemToCart();
   cart.saveToLocalStorage();
@@ -37,8 +35,21 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // TODO: suss out the item picked from the select list
+  let clickedOnProduct = document.getElementById('items');
+  clickedOnProduct.addEventListener('change', function (event) {
+    let itemToBeAddedToCart = event.target.item.option;
+    console.log(itemToBeAddedToCart)
+    return itemToBeAddedToCart;
+  })
   // TODO: get the quantity
+  let quantity = document.getElementById('quantity')
+  quantity.addEventListener('change', function(event) {
+    let quantOfItem = event.target.quantity.number;
+    console.log(quantOfItem);
+    return quantOfItem;
+  }) 
   // TODO: using those, add one item to the Cart
+  // Cart.push(itemToBeAddedToCart, quantOfItem);
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
