@@ -35,8 +35,9 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // TODO: suss out the item picked from the select list
-  let clickedOnProduct = document.getElementById('items');
-  clickedOnProduct.addEventListener('change', function (event) {
+  let clickedOnProduct = document.getElementById('fieldset');
+  let productSelected = document.getElementById('items')
+  productSelected.addEventListener('change', function (event) {
     let itemToBeAddedToCart = event.target.item.option;
     console.log(itemToBeAddedToCart)
     return itemToBeAddedToCart;
@@ -48,6 +49,12 @@ function addSelectedItemToCart() {
     console.log(quantOfItem);
     return quantOfItem;
   }) 
+  clickedOnProduct.addEventListener('click', function(event){
+    let singleProductArray = [];
+    singleProductArray.push(itemToBeAddedToCart, quantity);
+    cart.push(singleProductArray);
+    console.log(cart);
+  })
   // TODO: using those, add one item to the Cart
   // Cart.push(itemToBeAddedToCart, quantOfItem);
 }
